@@ -31,7 +31,7 @@ asmlinkage int hook_write(int fd, const void *buf, size_t nbytes){
 static int my_init(void){
   unsigned int l;
   pte_t *pte;
-  printk(KERN_INFO "tstkernelhook init\n");
+  printk(KERN_INFO "syscall_hook_vol init\n");
 
   // Look up the system call table address
   sys_call_table = (void*)kallsyms_lookup_name("sys_call_table"); 
