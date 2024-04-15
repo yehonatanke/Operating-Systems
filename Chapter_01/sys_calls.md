@@ -1,6 +1,7 @@
 | System Call   | Description                               | Example                                                         |
 |:---------------:|:-------------------------------------------:|-----------------------------------------------------------------|
 | fork()        | Create a new process.                     | pid_t pid = fork(); <br> if (pid == 0) {/* Child process */ } <br> else if (pid > 0) { /* Parent process */ } <br> else { /* Error */ } |
+| exec()      | Execute a program.            | exec("/bin/ls", "ls", "-l", NULL);                          |
 | execve()      | Execute a program.                        | char *args[] = {"ls", "-l", NULL};<br> execve("/bin/ls", args, NULL); |
 | exit()        | Terminate the calling process.            | exit(0);                                                        |
 | open()        | Open a file or device.                    | int fd = open("file.txt", O_RDONLY);                           |
