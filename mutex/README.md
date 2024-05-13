@@ -1,4 +1,4 @@
-# <p align="center"> Mutexe </p>
+# <p align="center"> Mutex </p>
 
 Mutexes (short for mutual exclusions) are a foundational concept in concurrent programming used to ensure that multiple threads or processes do not execute certain critical sections of code simultaneously when such execution could cause conflicts.
 
