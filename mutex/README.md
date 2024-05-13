@@ -39,3 +39,67 @@ Mutexes are used in:
 - Embedded systems where hardware access needs synchronization.
 
 Mutexes are a critical tool in the toolbox of concurrent programming, providing a simple yet powerful mechanism for ensuring that complex interactions among threads do not lead to unwanted behaviors like data races or inconsistent states. They are foundational in architectures that require high reliability and consistency in the management of shared resources.
+
+#### Example
+
+Suppose we have a shared counter that multiple threads are trying to increment. Without synchronization, simultaneous access to the counter by multiple threads could lead to incorrect increments due to race conditions. We'll use a mutex to ensure that only one thread can access the counter at a time.
+
+```c
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// Mutex declaration
+pthread_mutex_t lock;
+
+// Shared variable
+int counter = 0;
+
+// Thread function to increment counter
+void* increment_counter(void* arg) {
+    // Lock the mutex
+    pthread_mutex_lock(&lock);
+
+    // Access the shared resource
+    counter++;
+    printf("Counter value: %d\n", counter);
+
+    // Unlock the mutex
+    pthread_mutex_unlock(&lock);
+
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2, t3;
+
+    // Initialize the mutex
+    if (pthread_mutex_init(&lock, NULL) != 0) {
+        printf("Mutex init failed\n");
+        return 1;
+    }
+
+    // Create threads
+    pthread_create(&t1, NULL, increment_counter, NULL);
+    pthread_create(&t2, NULL, increment_counter, NULL);
+    pthread_create(&t3, NULL, increment_counter, NULL);
+
+    // Wait for threads to finish
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    pthread_join(t3, NULL);
+
+    // Destroy the mutex
+    pthread_mutex_destroy(&lock);
+
+    return 0;
+}
+```
+
+#### Code Explanation
+- **Mutex Initialization**: We initialize the mutex using `pthread_mutex_init`. This setup is necessary before the mutex can be used.
+- **Thread Function (`increment_counter`)**: This function locks the mutex, increments the shared counter, prints its value, and then releases the mutex. The lock and unlock operations ensure that only one thread can execute the increment operation at a time.
+- **Creating and Running Threads**: We create three threads, each of which will execute the `increment_counter` function. This simulates concurrent access to the shared counter.
+- **Mutex Destruction**: After all threads have completed their execution, we clean up by destroying the mutex.
+
+This example showcases how a mutex can be effectively used to protect a shared resource (in this case, a simple counter) from concurrent access issues in a multi-threaded environment. By using a mutex, we ensure that the operation of incrementing the counter is performed atomically, maintaining data integrity and preventing race conditions.
