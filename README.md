@@ -36,9 +36,9 @@ My work in the course Operating Systems.
 
 | Component | Performance |
 |-----------|-------------|
-| Exercises | 100% |
-| Projects  | 100% |
-| Overall   | 100% |
+| Exercise 11 | 100% |
+| Exercise 12 | 100% |
+| Exercise 13 | 100% |
 
 ## Key Topics
 
